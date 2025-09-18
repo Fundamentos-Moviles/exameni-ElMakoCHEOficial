@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'const.dart' as cons;
-
 class Principal extends StatefulWidget {
   final int rows;
   final int columns;
@@ -16,17 +14,14 @@ class _PrincipalState extends State<Principal> {
   int? firstSelectedIndex;
   int? secondSelectedIndex;
   int pairsFound = 0;
-  bool gameCompleted = false;
-  
+  bool gameCompleted = false;  
   @override
   void initState() {
     super.initState();
     initializeGame();
   }
-  
   void initializeGame() {
     final totalCards = widget.rows * widget.columns;
-    
     // Crear pares de colores
     List<Color> colorPairs = [];
     for (int i = 0; i < totalCards ~/ 2; i++) {
@@ -34,10 +29,8 @@ class _PrincipalState extends State<Principal> {
       colorPairs.add(color);
       colorPairs.add(color); // Par duplicado
     }
-    
     // Mezclar los colores
     colorPairs.shuffle();
-    
     cardColors = colorPairs;
     cardRevealed = List<bool>.filled(totalCards, false);
     cardValues = List<int>.generate(totalCards, (index) => index);
@@ -53,15 +46,12 @@ class _PrincipalState extends State<Principal> {
         gameCompleted) {
       return;
     }
-    
     setState(() {
       cardRevealed[index] = true;
-      
       if (firstSelectedIndex == null) {
         firstSelectedIndex = index;
       } else {
         secondSelectedIndex = index;
-        
         // Verificar si coinciden
         if (cardColors[firstSelectedIndex!] == cardColors[secondSelectedIndex!]) {
           // Coinciden - mantener visibles
